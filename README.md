@@ -4,5 +4,5 @@ This repository contains code to reproduce the results reported in the following
 
 <dl>
 <dt>Figures</dt>
-<dd><a href="https://github.com/MachineLearningLifeScience/inverse_folding_free_energies/blob/master/figures.ipynb">figures.ipynb jupyter notebook</aa> (<a href="https://colab.research.google.com/github/MachineLearningLifeScience/inverse_folding_free_energies/blob/master/figures.ipynb">launch in colab</a>)</dd>
+<dd><a href="https://github.com/MachineLearningLifeScience/inverse_folding_free_energies/blob/master/figures.ipynb">figures.ipynb</aa> jupyter notebook (<a href="https://colab.research.google.com/github/MachineLearningLifeScience/inverse_folding_free_energies/blob/master/figures.ipynb">launch in colab</a>)</dd>
 </dl>
