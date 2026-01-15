@@ -7,14 +7,14 @@ import pandas as pd
 import torch
 import torch.nn.functional as F
 
-import esm
-from esm.inverse_folding.util import CoordBatchConverter
-from esm.inverse_folding.util import load_structure, extract_coords_from_structure
-from biotite.structure.residues import get_residues
-
 
 def get_esm_structure_data(structure_filename, chain_id, resid_offset=0, verbose=False):
     """Extract structure data in the format ESM-IF expects"""
+
+    # Import inside function to avoid triggering dependencies unless necessary
+    import esm
+    from esm.inverse_folding.util import load_structure, extract_coords_from_structure
+    from biotite.structure.residues import get_residues
 
     structure = load_structure(structure_filename, chain_id)
     pdb_coords, pdb_seq = extract_coords_from_structure(structure)    
@@ -40,6 +40,10 @@ def get_esm_structure_data(structure_filename, chain_id, resid_offset=0, verbose
 
 def calc_likelihood(model, batch, alphabet, device):
     """Call ESM-IF likelihood evaluation"""
+
+    # Import inside function to avoid triggering dependencies unless necessary
+    import esm
+    from esm.inverse_folding.util import CoordBatchConverter
 
     batch_converter = CoordBatchConverter(alphabet)
     coords, confidence, strs, tokens, padding_mask = batch_converter(
@@ -97,6 +101,12 @@ def calc_likelihoods(model, alphabet, ddg_data, structure_filename, pdb_id, stru
             output_filename = output_filename.replace(pdb_id.lower(), pdb_id.upper())
             if os.path.exists(output_filename):
                 return pd.read_csv(output_filename)
+            else:
+                # If output_filename was not found, check lower case name
+                output_filename = output_filename.replace(pdb_id.upper(), pdb_id.lower())
+                if os.path.exists(output_filename):
+                    return pd.read_csv(output_filename)
+
 
         assert False, f"CACHE-FILE NOT FOUND: {output_filename}"
 
