@@ -128,6 +128,11 @@ def calc_likelihoods(model, ddg_data, structure_filename, pdb_id, structure_file
             output_filename = output_filename.replace(pdb_id.lower(), pdb_id.upper())
             if os.path.exists(output_filename):
                 return pd.read_csv(output_filename)
+            else:
+                # If output_filename was not found, check lower case name
+                output_filename = output_filename.replace(pdb_id.upper(), pdb_id.lower())
+                if os.path.exists(output_filename):
+                    return pd.read_csv(output_filename)            
 
         assert False, f"CACHE-FILE NOT FOUND: {output_filename}"
 
